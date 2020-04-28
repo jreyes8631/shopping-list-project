@@ -6,7 +6,7 @@ class CSVparser
 
 def self.parse_file(path)
     rows = CSV.read(path)
-binding.pry
+
 end
 
 

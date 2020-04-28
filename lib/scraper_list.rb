@@ -1,55 +1,39 @@
+ 
  class ShoppingList::ListApp 
   
+   attr_writer :items
 
-  attr_writer :list
-
- def initialize
-  @list = List.new
+ def initialize()
+    @items = Array.new()
  end
- 
- def run
-  puts "Welcome to our shopping list"
-  loop do
-    puts "a - Add an item"
-    puts "r - Remove an item"
-    puts "v - View an item"
-    puts "c - Check an item"
-    puts "d - delete all items"
-    puts "e - To exit aplication"
-    input = gets.chomp
 
-      case input
+ def add_item(text)
+  item = Item.new(text)
+  @items.push(item)
+ end
 
-      when "a"
-        puts "What do you want to add?"
-        item = gets.chomp
-        @list.add_item(item)
-        puts ""
-      when "d"
-        puts "Do you really want to remove all? y/n"
-        input = gets.chomp
-        if input == "y"
-          @list.remove_all
-        else input == "n"
-         puts "Action cancelled"
-        end
-      when "r"
-        puts "Number of item you wish to remove"
-        index = gets.chomp
-        @list.remove_item(index.to_i)
-      when "v"
-        @list.show_all
-      when "c"
-        puts "Number of item you wish to check"
-        index = gets.chomp
-        @list.check_item(index.to_i)
-      when "e"
-        break
-      end
-    end
-    puts "Thank you for using our aplication"
+ def remove_item(index)
+    @items.delete_at(index)
+ end
+
+ def check_item(index)
+  
+  @items[index].checked = true
+  @items[index]
+ end
+
+ def remove_all
+ @items.clear
+ end
+
+ def show_all
+ if @items.length == 0
+  puts "There is no items on your list"
+ else
+  @items.each_index do |index|
+    puts index.to_s + " - " + @items[index].to_s
+   end
   end
  end
 
- list_app = ListApp.new
- list_app.run
+end
